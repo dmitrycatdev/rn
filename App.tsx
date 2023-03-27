@@ -14,7 +14,16 @@ const App = () => {
 
     return (
         <NavigationContainer>
-            <Tab.Navigator>
+            <Tab.Navigator
+                screenOptions={{
+                    tabBarLabelPosition: "beside-icon",
+                    tabBarLabelStyle: {
+                        fontWeight: "700",
+                        fontSize: 15
+                    },
+                    tabBarIconStyle: {display: "none"},
+                }}
+            >
                 <Tab.Screen
                     name="First"
                     component={FirstScreen}

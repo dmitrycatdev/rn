@@ -31,8 +31,6 @@ class Http {
             : ""
 
         try {
-
-            console.log("url: ", `${this.baseUrl}${url}${urlSearchParams}`)
             const response = await fetch(`${this.baseUrl}${url}${urlSearchParams}`, {
                 method: HttpMethod.GET,
                 headers:{

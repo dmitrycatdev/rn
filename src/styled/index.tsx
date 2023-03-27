@@ -18,7 +18,7 @@ export const ErrorText = styled(Text)`
     padding: 10px;
 `
 export const FlexStartView = styled(View)`
-    display: inline-flex;
+    display: flex;
     justify-content: flex-start;
 `
 

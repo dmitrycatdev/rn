@@ -3,26 +3,28 @@ import styled from "styled-components/native";
 import {GitHubListItem} from "../definitions/list";
 import {Image, Text, View} from "react-native";
 import {FlexColumnView,  FlexStartView} from "../styled";
+import {isIos} from "../utils";
 
 const Avatar = styled(Image)`
-  height: 50px;
-  width: 50px;
-  border-radius: 100px;
+  height: ${50};
+  width: ${50};
+  border-radius: ${100};
+  ${_ => isIos() ? " border: 1px solid black;" : ""}
   border: 1px solid black;
-  margin-right: 20px;
+  margin-right: ${20};
 `
 
 const ListItem = styled(View)`
-  margin: 10px;
+  margin: ${10}px;
   background-color: white;
   flex-direction: row;
-  padding: 10px;
-  border-radius: 10px;
+  padding: ${10}px;
+  border-radius: ${10};
 
 `
 const SubText = styled(Text)`
   color: darkgray;
-  font-size: 10em;
+  font-size: ${10};
 `
 
 type ListProps = {

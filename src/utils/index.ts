@@ -1,3 +1,5 @@
+import {Platform} from "react-native";
+
 export function uuid() {
     let u='',i=0;
     while(i++<36) {
@@ -10,4 +12,9 @@ export function uuid() {
 export function isNullOrEmpty(value: unknown) {
     if (!value) return
     return !!Object.keys(value)
+}
+
+
+export function isIos() {
+    return Platform.OS === 'ios'
 }
