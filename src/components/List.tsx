@@ -48,4 +48,4 @@ const List: FC<ListProps> = ({items}: ListProps) => {
     </>
 }
 
-export default List;
+export default React.memo(List);

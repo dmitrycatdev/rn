@@ -7,7 +7,7 @@ const useTimer = (maxSeconds: number, callback?: () => void) => {
     useEffect(() => {
         let timerId:  NodeJS.Timeout | null = null
 
-        if ( seconds >= maxSeconds) {
+        if (seconds >= maxSeconds) {
             callback?.()
             reset()
         } else if (isActive) {

@@ -24,12 +24,12 @@ type FirstScreenProps = {
 
 }
 
-const FirstScreen: FC<FirstScreenProps> = ({timer}: FirstScreenProps) => {
+const FirstScreen: FC = () => {
     const [list, setList] = useState<GitHubListItem[]>([])
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("")
     const [refreshing, setRefreshing] = useState(false)
-
+    const timer = useTimer(30)
     // const [timerSeconds, setTimerSeconds] = useState(0)
     // const [isActive, setIsActive] = useState(false)
 
