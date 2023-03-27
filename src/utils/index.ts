@@ -1,4 +1,5 @@
 import {Platform} from "react-native";
+import {FetchBaseQueryError} from "@reduxjs/toolkit/query";
 
 export function uuid() {
     let u='',i=0;
@@ -17,4 +18,21 @@ export function isNullOrEmpty(value: unknown) {
 
 export function isIos() {
     return Platform.OS === 'ios'
+}
+
+export function isFetchBaseQueryError(
+    error: unknown
+): error is FetchBaseQueryError {
+    return typeof error === 'object' && error != null && 'status' in error
+}
+
+export function isErrorWithMessage(
+    error: unknown
+): error is { message: string } {
+    return (
+        typeof error === 'object' &&
+        error != null &&
+        'message' in error &&
+        typeof (error as any).message === 'string'
+    )
 }

@@ -9,7 +9,6 @@ const Avatar = styled(Image)`
   height: ${50};
   width: ${50};
   border-radius: ${100};
-  ${_ => isIos() ? " border: 1px solid black;" : ""}
   border: 1px solid black;
   margin-right: ${20};
 `

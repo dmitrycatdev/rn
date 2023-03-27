@@ -6,6 +6,7 @@ import {ListRequestParams} from "../definitions/GitHubList";
 import List from "../components/сommon/List";
 import useTimer from "../hooks/useTimer";
 import {useLazyGetGitHubListQuery} from "../api";
+import {isErrorWithMessage, isFetchBaseQueryError} from "../utils";
 
 
 const DEFAULT_PARAMS: ListRequestParams = {
@@ -15,7 +16,7 @@ const DEFAULT_PARAMS: ListRequestParams = {
 const MAX_SECONDS = 30
 
 const FirstScreen: FC = () => {
-    const timer = useTimer(30)
+    const timer = useTimer(MAX_SECONDS)
 
     const [
         getList,
@@ -57,6 +58,18 @@ const FirstScreen: FC = () => {
         </ScreenCenterView>
     }
 
+    const ErrorNotify = ():JSX.Element => {
+        let message = "Something went wrong."
+
+        if (isFetchBaseQueryError(error)) {
+            message = 'error' in error ? error.error : JSON.stringify(error.data)
+        } else if (isErrorWithMessage(error)) {
+            message = error.message
+        }
+        return <ErrorText>{message}</ErrorText>
+    }
+
+    // @ts-ignore
     return <>
         <Text>Seconds: {timer.seconds}</Text>
 
@@ -68,7 +81,7 @@ const FirstScreen: FC = () => {
                 />
             }
         >
-            {isError && <ErrorText>Something went wrong</ErrorText>}
+            {isError && ErrorNotify()}
             <List items={list}/>
         </ScrollView>
     </>
