@@ -15,7 +15,6 @@ const DEFAULT_PARAMS: ListRequestParams = {
 const MAX_SECONDS = 30
 
 const FirstScreen: FC = () => {
-    const [refreshing, setRefreshing] = useState(false)
     const timer = useTimer(30)
 
     const [
