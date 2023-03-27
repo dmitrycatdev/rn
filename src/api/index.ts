@@ -1,9 +1,9 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {GitHubListItem, ListRequestParams} from "../definitions/GitHubList";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { GitHubListItem, ListRequestParams } from '../definitions/GitHubList'
 
 const DEFAULT_PARAMS: ListRequestParams = {
     per_page: 25,
-    page: 1
+    page: 1,
 }
 
 export const api = createApi({
@@ -16,12 +16,11 @@ export const api = createApi({
             query() {
                 return {
                     url: '/events',
-                    params: DEFAULT_PARAMS
+                    params: DEFAULT_PARAMS,
                 }
-
             },
         }),
     }),
 })
 
-export const {useLazyGetGitHubListQuery} = api
+export const { useLazyGetGitHubListQuery } = api

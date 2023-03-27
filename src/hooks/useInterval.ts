@@ -1,11 +1,11 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react'
 
 const useInterval = (callback: () => void, delay: number) => {
     useEffect(() => {
         if (!delay) return
-        const id = setInterval(callback, delay);
-        return () => clearInterval(id);
-    }, [delay]);
-};
+        const id = setInterval(callback, delay)
+        return () => clearInterval(id)
+    }, [delay])
+}
 
-export default useInterval;
+export default useInterval

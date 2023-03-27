@@ -1,25 +1,25 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react'
 
 const useTimer = (maxSeconds: number, callback?: () => void) => {
     const [seconds, setSeconds] = useState(0)
     const [isActive, setIsActive] = useState(false)
 
     useEffect(() => {
-        let timerId:  NodeJS.Timeout | null = null
+        let timerId: NodeJS.Timeout | null = null
 
         if (seconds >= maxSeconds) {
             callback?.()
             reset()
         } else if (isActive) {
             timerId = setInterval(() => {
-                setSeconds(seconds => seconds + 1);
-            }, 1000);
+                setSeconds((seconds) => seconds + 1)
+            }, 1000)
         } else if (!isActive && seconds !== 0) {
             // @ts-ignore
             clearInterval(timerId)
         }
         // @ts-ignore
-        return () => clearInterval(timerId);
+        return () => clearInterval(timerId)
     }, [isActive, seconds])
 
     function toggle(isActive: boolean) {
@@ -31,7 +31,7 @@ const useTimer = (maxSeconds: number, callback?: () => void) => {
         setIsActive(true)
     }
 
-    return {seconds, toggle, reset}
+    return { seconds, toggle, reset }
 }
 
 export default useTimer

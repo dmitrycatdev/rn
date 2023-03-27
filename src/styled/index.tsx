@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
-import {Text, View} from "react-native";
+import styled from 'styled-components/native'
+import { Text, View } from 'react-native'
 
 export const FlexCenterView = styled(View)`
     display: flex;
@@ -8,7 +8,7 @@ export const FlexCenterView = styled(View)`
 `
 
 export const ScreenCenterView = styled(FlexCenterView)`
-    flex:1;
+    flex: 1;
     background-color: lightgray;
 `
 
@@ -23,25 +23,23 @@ export const FlexStartView = styled(View)`
 `
 
 export const FlexStartCenterView = styled(View)`
-    display: inline-flex;
+    display: flex;
     justify-content: flex-start;
     align-items: center;
 `
 
 export const FlexColumnView = styled(View)`
-    display : flex;
-    flex-direction : column;
+    display: flex;
+    flex-direction: column;
 `
 
 export const FlexRowView = styled(View)`
-    display : flex;
-    flex-direction : row;
+    display: flex;
+    flex-direction: row;
 `
 
 export const FlexColumnCenterView = styled(View)`
-    display : flex;
-    flex-direction : column;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
 `
-
-

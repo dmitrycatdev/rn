@@ -1,12 +1,12 @@
 export interface GitHubListItem {
-    id: number,
+    id: number
     actor: {
-        display_login: string,
+        display_login: string
         avatar_url: string
     }
 }
 
 export interface ListRequestParams {
-    per_page: number,
+    per_page: number
     page: number
 }
