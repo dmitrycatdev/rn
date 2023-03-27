@@ -4,15 +4,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import FirstScreen from "./src/screens/FirstScreen";
 import SecondScreen from "./src/screens/SecondScreen";
-import useTimer from "./src/hooks/useTimer";
-
+import {Provider} from "react-redux";
+import {store} from "./src/store";
 
 const Tab = createBottomTabNavigator();
 
-
-const App = () => {
-
-    return (
+const App = () => (
+    <Provider store={store}>
         <NavigationContainer>
             <Tab.Navigator
                 screenOptions={{
@@ -34,7 +32,7 @@ const App = () => {
                 />
             </Tab.Navigator>
         </NavigationContainer>
-    );
-}
+    </Provider>
+)
 
 export default App;

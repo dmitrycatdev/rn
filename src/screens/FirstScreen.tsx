@@ -1,89 +1,54 @@
-import React, {FC, useCallback, useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {RefreshControl, ScrollView, Text} from "react-native";
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
-import {ErrorText, FlexStartCenterView, ScreenCenterView} from "../styled";
-import * as listAPI from "../api/modules/list";
-import {GitHubListItem, ListRequestParams} from "../definitions/list";
-import {HttpError} from "../api";
-import List from "../components/List";
+import {useIsFocused} from '@react-navigation/native';
+import {ErrorText, ScreenCenterView} from "../styled";
+import {ListRequestParams} from "../definitions/GitHubList";
+import List from "../components/сommon/List";
 import useTimer from "../hooks/useTimer";
+import {useLazyGetGitHubListQuery} from "../api";
 
 
 const DEFAULT_PARAMS: ListRequestParams = {
-    per_page: 10,
+    per_page: 25,
     page: 1
 }
-const MAX_SECONDS = 10
-
-type FirstScreenProps = {
-    timer: {
-        seconds: number;
-        reset: () => void;
-        toggle: (toggle: boolean) => void;
-    }
-
-}
+const MAX_SECONDS = 30
 
 const FirstScreen: FC = () => {
-    const [list, setList] = useState<GitHubListItem[]>([])
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState("")
     const [refreshing, setRefreshing] = useState(false)
     const timer = useTimer(30)
-    // const [timerSeconds, setTimerSeconds] = useState(0)
-    // const [isActive, setIsActive] = useState(false)
+
+    const [
+        getList,
+        {
+            data: list,
+            isLoading,
+            isError,
+            error,
+        }] = useLazyGetGitHubListQuery()
 
     const isFocused = useIsFocused()
 
     useEffect(() => {
         if (isFocused) {
+            getList(DEFAULT_PARAMS)
             timer.toggle(true)
-            handleRequest().then()
         } else {
             timer.toggle(false)
         }
     }, [isFocused]);
 
 
-
     useEffect(() => {
         console.log(timer.seconds)
-        if ( timer.seconds >= MAX_SECONDS) {
-            handleRequest().then()
+        if (timer.seconds >= MAX_SECONDS) {
+            getList(DEFAULT_PARAMS)
             timer.reset()
         }
     }, [timer.seconds])
 
-    // const toggleTimer = (isActive: boolean) => {
-    //     setIsActive(isActive)
-    // }
-    //
-    // const reset = () => {
-    //     setTimerSeconds(0)
-    // }
-
-    const sendRequest = async () => {
-        setError("")
-        const list = await listAPI.get(DEFAULT_PARAMS)
-
-        if (list instanceof HttpError) {
-            setError(list.message)
-            return
-        }
-
-        setList(list);
-    }
-
-    const handleRequest = async () => {
-        setIsLoading(true)
-        await sendRequest()
-        setIsLoading(false)
-    };
-
     const onRefresh = async () => {
-        setRefreshing(true);
-        await sendRequest()
-        setRefreshing(false)
+        getList(DEFAULT_PARAMS)
         timer.reset()
     }
 
@@ -94,17 +59,17 @@ const FirstScreen: FC = () => {
     }
 
     return <>
-        <Text>{timer.seconds}</Text>
+        <Text>Seconds: {timer.seconds}</Text>
 
         <ScrollView
             refreshControl={
                 <RefreshControl
-                    refreshing={refreshing}
+                    refreshing={false}
                     onRefresh={onRefresh}
                 />
             }
         >
-            {error && <ErrorText>{error}</ErrorText>}
+            {isError && <ErrorText>Something went wrong</ErrorText>}
             <List items={list}/>
         </ScrollView>
     </>

@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import styled from "styled-components/native";
-import {GitHubListItem} from "../definitions/list";
+import {GitHubListItem} from "../../definitions/GitHubList";
 import {Image, Text, View} from "react-native";
-import {FlexColumnView,  FlexStartView} from "../styled";
-import {isIos} from "../utils";
+import {FlexColumnView, FlexStartView} from "../../styled";
+import {isIos} from "../../utils";
 
 const Avatar = styled(Image)`
   height: ${50};
@@ -28,26 +28,26 @@ const SubText = styled(Text)`
 `
 
 type ListProps = {
-    items: GitHubListItem[];
+    items?: GitHubListItem[];
 }
 
-const List: FC<ListProps> = ({items}: ListProps) => {
-    return <>
-        {
-            items.map(item => {
-                return <ListItem key={item.id}>
-                    <FlexStartView>
-                        <Avatar source={{uri: item.actor.avatar_url}}/>
-                    </FlexStartView>
-                    <FlexColumnView>
-                        <Text>{item.actor.display_login}</Text>
-                        <SubText>id: {item.id}</SubText>
-                    </FlexColumnView>
+const List: FC<ListProps> = ({items}) => {
+    if (!items) return <></>
 
-                </ListItem>
-            })
-        }
-    </>
+    return <>{
+        items.map(item => {
+            return <ListItem key={item.id}>
+                <FlexStartView>
+                    <Avatar source={{uri: item.actor.avatar_url}}/>
+                </FlexStartView>
+                <FlexColumnView>
+                    <Text>{item.actor.display_login}</Text>
+                    <SubText>id: {item.id}</SubText>
+                </FlexColumnView>
+
+            </ListItem>
+        })
+    }</>
 }
 
 export default React.memo(List);
